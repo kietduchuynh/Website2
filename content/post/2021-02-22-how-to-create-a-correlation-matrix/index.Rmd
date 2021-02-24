@@ -1,0 +1,36 @@
+---
+title: How to create a correlation matrix
+author: Kiet Huynh
+date: '2021-02-22'
+slug: how-to-create-a-correlation-matrix
+categories:
+  - Statistics
+tags: []
+---
+
+Why is it so difficult to make a correlation matrix? Especially ones typically seen in journal articles (that includes astericks to indicate significant correlations). For this post, I hope to simplify the process.
+
+```{r}
+# Load package
+library(psychTools)
+library(dplyr)
+
+# see psychology datasets in the psychTools package
+data(package='psychTools')
+data <- affect
+
+# Describe variables
+psych::describe.by(data)
+
+# Filter data to include only relevant variables
+data2 <- data %>% select(ext, neur, imp, PA1, NA1, BDI)
+
+# Estimate correlations
+GGally::ggpairs(data2, title="correlogram with ggpairs()") 
+```
+
+
+# Continue building site from section "Chapter 2 Hugo" of https://bookdown.org/yihui/blogdown/hugo.html.
+
+## [ ] Use apaTables package to create APA style correlation table and regression table
+Maybe you can import the table from the pdf output into the R file.

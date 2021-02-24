@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on Kiet&#39;s Website</title>
+    <link>/categories/statistics/</link>
+    <description>Recent content in Statistics on Kiet&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to create a correlation matrix</title>
+      <link>/2021/02/22/how-to-create-a-correlation-matrix/</link>
+      <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/02/22/how-to-create-a-correlation-matrix/</guid>
+      <description>Why is it so difficult to make a correlation matrix? Especially ones typically seen in journal articles (that includes astericks to indicate significant correlations). For this post, I hope to simplify the process.
+# Load package library(psychTools) library(dplyr) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union # see psychology datasets in the psychTools package data(package=&amp;#39;psychTools&amp;#39;) data &amp;lt;- affect # Describe variables psych::describe.</description>
+    </item>
+    
+  </channel>
+</rss>

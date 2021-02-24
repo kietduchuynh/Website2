@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>How to create a correlation matrix - Kiet&#39;s Website</title>
+<meta property="og:title" content="How to create a correlation matrix - Kiet&#39;s Website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">4 min read</span>
+    
+
+    <h1 class="article-title">How to create a correlation matrix</h1>
+
+    
+    <span class="article-date">2021-02-22</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>Why is it so difficult to make a correlation matrix? Especially ones typically seen in journal articles (that includes astericks to indicate significant correlations). For this post, I hope to simplify the process.</p>
+<pre class="r"><code># Load package
+library(psychTools)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code># see psychology datasets in the psychTools package
+data(package=&#39;psychTools&#39;)
+data &lt;- affect
+
+# Describe variables
+psych::describe.by(data)</code></pre>
+<pre><code>## Warning: describe.by is deprecated. Please use the describeBy function</code></pre>
+<pre><code>## Warning in describeBy(x = x, group = group, mat = mat, type = type, ...): no
+## grouping variable requested</code></pre>
+<pre><code>##          vars   n  mean    sd median trimmed   mad min   max range  skew
+## Study*      1 330  1.52  0.50   2.00    1.52  0.00   1  2.00  1.00 -0.06
+## Film        2 330  2.52  1.13   3.00    2.52  1.48   1  4.00  3.00 -0.03
+## ext         3 330 13.16  4.47  13.00   13.38  4.45   0 22.00 22.00 -0.41
+## neur        4 330 10.22  5.04  10.00   10.11  4.45   0 23.00 23.00  0.19
+## imp         5 330  4.29  1.97   4.00    4.30  1.48   0  9.00  9.00 -0.02
+## soc         6 330  7.51  2.86   8.00    7.75  2.97   0 13.00 13.00 -0.64
+## lie         7 330  2.30  1.48   2.00    2.20  1.48   0  7.00  7.00  0.68
+## traitanx    8 330 39.52  9.77  38.00   38.88  8.90  22 71.00 49.00  0.63
+## state1      9 330 40.83 10.76  40.00   40.24 10.38  20 79.00 59.00  0.57
+## EA1        10 330  9.19  7.11   8.00    8.67  8.90   0 29.00 29.00  0.52
+## TA1        11 330 12.91  4.42  13.00   12.76  4.45   0 26.00 26.00  0.35
+## PA1        12 330  8.89  6.79   8.00    8.28  7.41   0 29.00 29.00  0.70
+## NA1        13 330  3.69  4.31   2.00    2.93  2.97   0 28.00 28.00  1.97
+## EA2        14 330 11.01  6.85  11.00   10.82  7.41   0 29.00 29.00  0.21
+## TA2        15 330 15.65  4.88  15.00   15.54  4.45   3 31.00 28.00  0.25
+## PA2        16 330  8.98  6.43   8.00    8.52  7.41   0 29.00 29.00  0.53
+## NA2        17 330  4.65  5.19   3.00    3.79  4.45   0 30.00 30.00  1.38
+## state2     18 170 42.45 10.76  43.00   42.35 10.38  20 71.00 51.00  0.10
+## MEQ        19 170 39.36 10.28  40.00   39.43 11.12  15 65.00 50.00 -0.06
+## BDI        20 160  0.31  0.28   0.24    0.27  0.21   0  1.46  1.46  1.50
+##          kurtosis   se
+## Study*      -2.00 0.03
+## Film        -1.38 0.06
+## ext         -0.15 0.25
+## neur        -0.44 0.28
+## imp         -0.67 0.11
+## soc         -0.13 0.16
+## lie          0.38 0.08
+## traitanx     0.16 0.54
+## state1       0.17 0.59
+## EA1         -0.65 0.39
+## TA1          0.39 0.24
+## PA1         -0.13 0.37
+## NA1          5.29 0.24
+## EA2         -0.79 0.38
+## TA2         -0.13 0.27
+## PA2         -0.39 0.35
+## NA2          1.92 0.29
+## state2      -0.45 0.83
+## MEQ         -0.38 0.79
+## BDI          2.66 0.02</code></pre>
+<pre class="r"><code># Filter data to include only relevant variables
+data2 &lt;- data %&gt;% select(ext, neur, imp, PA1, NA1, BDI)
+
+# Estimate correlations
+GGally::ggpairs(data2, title=&quot;correlogram with ggpairs()&quot;) </code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 170 rows containing missing values</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 170 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 170 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 170 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 170 rows containing missing values</code></pre>
+<pre><code>## Warning: Removed 170 rows containing missing values (geom_point).
+
+## Warning: Removed 170 rows containing missing values (geom_point).
+
+## Warning: Removed 170 rows containing missing values (geom_point).
+
+## Warning: Removed 170 rows containing missing values (geom_point).
+
+## Warning: Removed 170 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 170 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2021/02/22/how-to-create-a-correlation-matrix/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

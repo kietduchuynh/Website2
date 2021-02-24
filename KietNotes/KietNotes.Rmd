@@ -1,0 +1,14 @@
+---
+site: blogdown:::blogdown_site
+---
+
+Purpose of this file: to take notes about what I want to do/work on in the website. This file also summarizes all the posts I created in my website.
+
+# Posts
+
+## How to create a correlation matrix
+
+```{r}
+file.edit('/Users/Professional/Documents/Website_Kiet/Website2/content/post/2021-02-22-how-to-create-a-correlation-matrix/index.Rmd')
+```
+

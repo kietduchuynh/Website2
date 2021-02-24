@@ -1,0 +1,57 @@
+---
+title: Testing 1
+author: Kiet Huynh
+date: '2021-02-22'
+slug: testing
+categories:
+  - Testing
+tags:
+  - Testing
+---
+
+This is a test post. does it work?
+
+<img src="images/Kiet_Huynh_web_LowRes.jpg" alt="" width="40%" height="40%"/>
+
+# Plot Example
+
+
+```r
+plot(cars, pch = 10)  # not really cool
+```
+
+<div class="figure">
+<img src="{{< blogdown/postref >}}index_files/figure-html/cool-plot-1.png" alt="A cool plot." width="672" />
+<p class="caption">Figure 1: A cool plot.</p>
+</div>
+
+# Formatting Text Tips
+
+
+```r
+# URL: https://bookdown.org/yihui/blogdown/output-format.html
+
+# Inline formatting: _italic_ / **bold** text and `inline code`
+
+# Inline elements: subscripts (e.g., H~2~0) and superscripts (e.g., R^2^); links ([text](url)) and images ![title](url); footnotes text^[footnote].
+```
+_italic_
+
+**bold**
+
+`inline code`
+
+# Task List
+
+- [x] Write an R package.
+- [ ] Write a book.
+- [ ] ...
+- [ ] Profit!
+
+# Math Expression
+
+`\(math\)`
+
+`$$math$$`
+
+`$S_n = \sum_{i=1}^n X_i$`
